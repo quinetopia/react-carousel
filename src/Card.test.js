@@ -11,7 +11,7 @@ it("renders without crashing", function() {
   render(<Card 
             caption={card.caption}
             src={card.src}
-            currNum={cardIdx + 1}
+            currNum={card.cardIdx + 1}
             totalNum={total}/>);
 });
 
@@ -19,7 +19,7 @@ it("matches snapshot", function() {
   const { asFragment } = render(<Card 
                                   caption={card.caption}
                                   src={card.src}
-                                  currNum={cardIdx + 1}
+                                  currNum={card.cardIdx + 1}
                                   totalNum={total}/>);
   expect(asFragment()).toMatchSnapshot();
 });

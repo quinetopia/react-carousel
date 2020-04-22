@@ -27,12 +27,17 @@ it("works when you click on the right arrow", function() {
   expect(queryByAltText("Photo by Pratik Patel on Unsplash")).toBeInTheDocument();
 });
 
+
 it("works when you click on the left arrow", function() {
   const { queryByTestId, queryByAltText } = render(<Carousel />);
 
+   // move forward in the carousel
+   const rightArrow = queryByTestId("right-arrow");
+   fireEvent.click(rightArrow);
+
   // expect the second image to show, but not the first
-  expect(queryByAltText("Photo by Richard Pasquarella on Unsplash")).not.toBeInTheDocument();
   expect(queryByAltText("Photo by Pratik Patel on Unsplash")).toBeInTheDocument();
+  expect(queryByAltText("Photo by Richard Pasquarella on Unsplash")).not.toBeInTheDocument();
 
   // move backward in the carousel
   const leftArrow = queryByTestId("left-arrow");
@@ -41,4 +46,19 @@ it("works when you click on the left arrow", function() {
   // expect the first image to show, but not the second
   expect(queryByAltText("Photo by Richard Pasquarella on Unsplash")).toBeInTheDocument();
   expect(queryByAltText("Photo by Pratik Patel on Unsplash")).not.toBeInTheDocument();
+});
+
+
+it("hides right an dleft arrows", function() {
+  const { queryByTestId } = render(<Carousel />);
+
+  // expect the left arrow to be hidden
+  expect(queryByTestId("left-arrow")).toContainHTML('style="display: none;"');
+  //click right arrow three times
+  const rightArrow = queryByTestId("right-arrow");
+  fireEvent.click(rightArrow);
+  fireEvent.click(rightArrow);
+
+  // expect the right arrow to be hidden
+  expect(queryByTestId("right-arrow")).toContainHTML('style="display: none;"');
 });
